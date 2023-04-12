@@ -1,0 +1,1 @@
+{"dropped_cols": ["x", "y", "z", "depth", "id"], "numerical_cols": ["carat", "table"], "categorical_cols": ["cut", "color", "clarity"], "target_col": "price"}
