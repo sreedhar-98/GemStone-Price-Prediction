@@ -21,14 +21,7 @@ class DataTransformer:
     def get_transform_object(self):
         logging.info("Data Transformation object fetch initiated")
         try:
-            #Categorical Feature Encoding
-            # Define the custom ranking for each ordinal variable
-            # cut_categories = ['Fair', 'Good', 'Very Good','Premium','Ideal']
-            # color_categories = ['D', 'E', 'F', 'G', 'H', 'I', 'J']
-            # clarity_categories = ['I1','SI2','SI1','VS2','VS1','VVS2','VVS1','IF']
-            # categorical_cols = ['cut', 'color','clarity']
-            # numerical_cols = ['carat', 'depth','table', 'x', 'y', 'z']
-
+            
             with open('src/feature_engineering_artifacts/features_dict.json','r') as f:
                 cols=json.load(f)
             with open('src/feature_engineering_artifacts/encoding.json','r') as f:
@@ -75,7 +68,7 @@ class DataTransformer:
 
             train_data.drop(dropped_cols,axis=1,inplace=True)
             test_data.drop(dropped_cols,axis=1,inplace=True)
-            
+
             X_train=train_data.drop(feature_col,axis=1)
             y_train=train_data[feature_col]
 
