@@ -58,19 +58,13 @@ def train_evaluate_model(models_dict,train_arr,test_arr):
        logging.info("Error occured while training the model")
        raise CustomException(e,sys)      
 
-# def style_df(df):
-#      styles = [
-#         {'selector': 'th',
-#          'props': [('border', '1px solid black'),
-#                    ('background-color', 'lightgrey'),
-#                    ('text-align', 'center'),
-#                    ('padding', '5px')]},
-#         {'selector': 'td',
-#          'props': [('border', '1px solid black'),
-#                    ('padding', '5px')]}
-#     ]
-#      return df.style.format('{:.2f}').set_table_styles(styles)
-
+def load_object(file_path):
+   try:
+      with open(file_path,'rb') as f:
+         return pickle.load(f)
+   except Exception as e:
+      logging.info("Exception occured while loading the pickle file")
+      raise CustomException(e,sys)
         
 
         

@@ -26,7 +26,7 @@ class modelTraining:
             model_report=train_evaluate_model(models_dict,train_arr,test_arr)
             logging.info("Training is completed and the report is generated.")
             logging.info(model_report)
-            print('#'*35)
+            print('#'*135)
             print(model_report)
             scores=[]
             for model in model_report.index:
@@ -34,7 +34,7 @@ class modelTraining:
         
             scores=sorted(scores,key=lambda x : x[1],reverse=True)
 
-            print('#'*35)
+            print('#'*135)
             print('\n')
             print("Model with highest r2 score is {}({})".format(scores[0][0],scores[0][1]))
             logging.info(f"Model with highest r2 score is {scores[0][0]} ({scores[0][1]})")

@@ -11,6 +11,7 @@ import sys
 import numpy as np
 from src.utils import save_object
 import json
+import re
 
 @dataclass
 class TransformationConfig:
@@ -50,7 +51,7 @@ class DataTransformer:
             preprocessor=ColumnTransformer([
                 ('num_pipeline',num_pipeline,numerical_cols),
                 ('cat_pipeline',cat_pipeline,categorical_cols)
-                ],verbose_feature_names_out=True)  
+                ],verbose_feature_names_out=False)  
             return preprocessor
         except Exception as e:
             logging.info("Exception occured at Data Transformation step")
@@ -79,6 +80,9 @@ class DataTransformer:
             logging.info("Applying preprocessing")
             X_train_arr=preprocessor.fit_transform(X_train)
             X_test_arr=preprocessor.transform(X_test)
+            
+            #print(preprocessor.get_feature_names_out())
+            
             train_arr=np.c_[X_train_arr,np.array(y_train)]
             test_arr=np.c_[X_test_arr,np.array(y_test)]
 
