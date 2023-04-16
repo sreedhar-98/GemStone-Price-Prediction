@@ -92,7 +92,13 @@ jobs:
        
       - name: Run Docker Image to serve users
         run: |
-         docker run -d -p 8080:8080 --ipc="host" --name=diamondprice -e 'AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}' -e 'AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}' -e 'AWS_REGION=${{ secrets.AWS_REGION }}'  ${{secrets.AWS_ECR_LOGIN_URI}}/${{ secrets.ECR_REPOSITORY_NAME }}:latest
+        if [[ "$(docker ps -q -f name=diamondprice)" ]]; then
+            docker stop diamondprice
+        fi
+        if [[ "$(docker ps -aq -f status=exited -f name=diamondprice)" ]]; then
+            docker rm diamondprice
+        fi
+        docker run -d -p 8080:8080 --ipc="host" --name=diamondprice -e 'AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}' -e 'AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}' -e 'AWS_REGION=${{ secrets.AWS_REGION }}'  ${{secrets.AWS_ECR_LOGIN_URI}}/${{ secrets.ECR_REPOSITORY_NAME }}:latest
       - name: Clean previous images and containers
         run: |
          docker system prune -f
